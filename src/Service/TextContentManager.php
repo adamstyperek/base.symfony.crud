@@ -13,7 +13,7 @@ class TextContentManager extends BaseEntityManager
         
     }
 
-    public function saveTextConent(TextContent &$text_content)
+    public function update(TextContent &$text_content)
     {
         $this->saveEntity($text_content);
     }

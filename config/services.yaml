@@ -7,7 +7,7 @@ parameters:
     locale: 'pl'
     img_directory: '%kernel.project_dir%/public/img/'
 twig:
-    globls:
+    globals:
         img_direcotry: '/img/'
 
 
@@ -34,4 +34,4 @@ services:
 
     App\Service\TextContentManager:
         arguments:
-            $manager: '@doctrine.orm.default_entity_manager' 
+            $entity_manager: '@doctrine.orm.default_entity_manager' 
