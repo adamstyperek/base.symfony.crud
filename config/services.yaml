@@ -35,3 +35,6 @@ services:
     App\Service\TextContentManager:
         arguments:
             $entity_manager: '@doctrine.orm.default_entity_manager' 
+    App\Service\FileManager:
+        arguments:
+            $entity_manager: '@doctrine.orm.default_entity_manager'         
