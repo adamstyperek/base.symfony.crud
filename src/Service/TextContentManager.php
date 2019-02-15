@@ -18,8 +18,10 @@ class TextContentManager extends BaseEntityManager
         $this->saveEntity($text_content);
     }
 
-    public function findTextContentByName(string $name) : TextContent
+    public function findTextContentByName(string $name) : ?TextContent
     {
         $repository = $this->manager->getRepository($entity_class);
+
+        return $repository->findOne(['name' => $name]);
     }
 }
