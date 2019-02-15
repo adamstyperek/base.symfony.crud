@@ -15,6 +15,13 @@ class BaseEntityManager
         $this->entity_class = $entity_class;
     }
 
+    public function getAll()
+    {
+        $repository = $this->manager->getRepository($entity_class);
+
+        return $repository->findAll();
+    }
+
     protected function getEntityById(int $id)
     {
         $repository = $this->manager->getRepository($entity_class);

@@ -9,6 +9,7 @@ parameters:
 twig:
     globals:
         img_direcotry: '/img/'
+        base_site_name: '%env(BASE_SITE_NAME)%'
 
 
 services:
