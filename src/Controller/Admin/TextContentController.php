@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\TextContentManager;
 use App\Form\TextContentType;
+use App\Entity\TextContent;
 
 /**
  * @Route("/admin/text_content")

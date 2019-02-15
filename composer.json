@@ -1,4 +1,13 @@
 {
+    "name": "adamstyperek/base.symfony.crud",
+    "description": "website with cms skeleton based on symfony webiste-skeleton",
+    "authors": [
+        {
+            "name": "Adam Styperek",
+            "email": "adamstyperek@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
     "type": "project",
     "license": "proprietary",
     "require": {
