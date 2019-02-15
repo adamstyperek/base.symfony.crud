@@ -1,0 +1,12 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edycja {{subject}}{% endblock %}
+
+
+{% block body %}
+    <h1>Edycja {{subject}} {{entity.name}}</h1>
+    {% block form %}{% endblock %}    
+    
+    <a href="{{list_path}}" class="btn btn-primary">Powrót do listy</a>
+
+{% endblock %}

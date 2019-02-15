@@ -1,0 +1,5 @@
+{% extends 'admin/edit.html.twig' %}
+{% set subject = 'treści' %}
+{% set path = path('admin_text_content_index') %}
+{% block title %}Edycja treści{% endblock %}
+{% block form %}{{ include('admin/text_content/_form.html.twig', {'button_label': 'Zapisz'}) }}{% endblock %}   

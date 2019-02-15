@@ -1,0 +1,33 @@
+{% extends 'admin/list.html.twig' %}
+{% set _subject = 'Treść' %}
+{% block alert_saved %}
+    {{_subject}} została zapisany!
+{% endblock %}
+{% block alert_deleted %}
+    {{_subject}} została usunięta!
+{% endblock %}
+
+{% block alert_notexists %}
+    <strong>Uwaga!</strong> {{_subject}} nie istnieje
+{% endblock %}
+{% block header2 %}Treści{% endblock %}                    
+{% block thead %}
+    <th>Nazwa</th>
+    <th>Tytuł</th>
+    <th>Akcje</th>
+    {% endblock %}
+    {% block tbody %}
+        {% for content in contents %}
+        <tr>
+            <td>{{ content.name }}</td>
+            <td>{{ content.title }}</td>
+            <td>
+                <a href="{{ path('admin_text_content_edit', {'id': conetent.id}) }}" class="btn btn-primary btn-sm">Edytuj</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">Brak danych</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
