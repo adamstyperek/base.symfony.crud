@@ -1,0 +1,12 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Tworzenie {{subject}}{% endblock %}
+
+
+{% block body %}
+    <h1>Tworzenie {{subject}} {{entity.name}}</h1>
+    {% block form %}{{ include('admin/_form.html.twig', {'button_label': 'Zapisz'}) }}{% endblock %}       
+    
+    <a href="{{list_path}}" class="btn btn-primary">Powrót do listy</a>
+
+{% endblock %}

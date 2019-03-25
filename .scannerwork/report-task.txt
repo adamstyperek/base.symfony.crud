@@ -1,0 +1,7 @@
+organization=adamstyperek-github
+projectKey=adamstyperek_base.symfony.crud
+serverUrl=https://sonarcloud.io
+serverVersion=7.7.0.22299
+dashboardUrl=https://sonarcloud.io/dashboard?id=adamstyperek_base.symfony.crud
+ceTaskId=AWkzY5uz9nd6xwWk9FPm
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWkzY5uz9nd6xwWk9FPm

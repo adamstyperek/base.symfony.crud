@@ -1,0 +1,68 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}  
+{% endblock %}
+
+{% block body %}
+
+    <div class="clearfix"></div>
+    {% if alert is defined and alert == 'saved' %}
+        <div class="alert alert-success">
+            {% block alert_saved %}
+            {% endblock %}
+        </div>
+    {% endif %}
+
+    {% if alert is defined and alert == 'deleted' %}
+        <div class="alert alert-success">
+            {% block alert_deleted %}
+            {% endblock %}
+        </div>
+    {% endif %}
+
+    {% if alert is defined and alert == 'notexists' %}
+        <div class="alert alert-danger">
+            {% block alert_notexists %}
+            {% endblock %}
+        </div>
+    {% endif %}
+
+    {% if alert is defined and alert == 'error' %}
+        <div class="alert alert-danger">
+            {% block alert_error %}
+            {% endblock %}
+        </div>
+    {% endif %}
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{% block header2 %}{% endblock %}</h2>
+                
+                    <div class="clearfix"></div>
+                </div>
+                {% block create_new %}
+                {% endblock %}
+                <br/>
+                <div class="x_content">
+                    <table id="{% block datatableId %}datatable-responsive{% endblock %}" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                {% block thead %}
+                                {% endblock %}
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            {% block tbody %}
+                            {% endblock %}                                
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

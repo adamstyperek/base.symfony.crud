@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use App\Exception\NoFileException;
+use Imagick;
 
 
 class PhotoManager 
@@ -15,7 +16,7 @@ class PhotoManager
         }
 
         foreach($sizes as $thumb_name => $resolution)
-        {
+        {            
             if(!(isset($resolution[0]) && isset($resolution[1]))) {
                 throw new NoResulutionException("Resolution for file is not set", 3);
             }
@@ -24,8 +25,16 @@ class PhotoManager
             if(file_exists($thumb_file_name)) {
                 unlink($thumb_file_name);
             }
+            $imageInfo = getimagesize($base_directory . $file_name);
+            $ratio = $imageInfo[0] / $imageInfo[1];
+            if($ratio < 1) {
+                $this->GenerateThumbnail($base_directory . $file_name, $thumb_file_name, $resolution[1], $resolution[0]);
+            }
+            else {
+                $this->GenerateThumbnail($base_directory . $file_name, $thumb_file_name, $resolution[0], $resolution[1]);
+            }
 
-            $this->GenerateThumbnail($base_directory . $file_name, $thumb_file_name, $resolution[0], $resolution[1]);
+            
         }
     }
 
@@ -34,6 +43,7 @@ class PhotoManager
         if(file_exists($th_filename)) {
             unlink($th_filename);
         }
+
         $thumb=new Imagick($im_filename);
 
         //Work out new dimensions

@@ -4,6 +4,7 @@ namespace App\Service;
 use Doctrine\Orm\EntityManagerInterface;
 use App\Entity\File;
 use App\Exception\NoFileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileManager extends BaseEntityManager
 {
@@ -24,7 +25,7 @@ class FileManager extends BaseEntityManager
         $repository = $this->manager->getRepository($entity_class);
     }
 
-    protected function saveFile($file, $directory)
+    public function saveFile($file, $directory)
     {
         if (!$file instanceof UploadedFile) {
             throw new NoFileException("file is not an instance of UploadedFile", 1);
@@ -34,7 +35,7 @@ class FileManager extends BaseEntityManager
         $originalName = $file->getClientOriginalName();
         $originalExtension = $file->getClientOriginalExtension();
         $fileName = sha1(random_bytes(20));
-        $type = $this->getFileType($extenstion);
+        $type = $this->getFileType($originalExtension);
 
         $fileEntity = new File($fileName, $originalExtension, $originalName, $originalExtension, $type);        
         $file->move($directory, $fileName . '.' . $originalExtension);
@@ -47,6 +48,12 @@ class FileManager extends BaseEntityManager
 
     private function getFileType(string $extenstion) : string
     {
-        return '';
+        switch($extenstion)
+        {
+            case 'pdf':
+                return 'pdf';
+            default: 
+                return 'image';
+        }
     }
 }

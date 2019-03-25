@@ -14,8 +14,8 @@ class TextContentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, array('required' => true, 'label' => 'Tytuł'))
             ->add('content', TextareaType::class, array('required' => true, 'label' => 'Opis', 'attr' => array('class' => 'wysiwyg')))
+            ->add('contentEn', TextareaType::class, array('required' => true, 'label' => 'Opis (En)', 'attr' => array('class' => 'wysiwyg')))
         ;
     }
 

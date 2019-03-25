@@ -16,6 +16,9 @@ use App\Entity\TextContent;
 class TextContentController extends BaseController
 {
 
+    const VIEWS_MAIN_PATH = 'admin/text_content/';
+    const INDEX_ROUTE_NAME = 'admin_text_content_index';
+
     /**
      * @Route("/", name="admin_text_content_index", methods="GET")
      */
@@ -25,7 +28,7 @@ class TextContentController extends BaseController
 
         $contents = $manager->getAll();
 
-        return $this->render('admin/text_content/index.html.twig', ['contents' => $contents(), 'alert' => $alert]);
+        return $this->render(static::VIEWS_MAIN_PATH.'index.html.twig', ['contents' => $contents, 'alert' => $alert]);
                 
     }
 
@@ -34,7 +37,7 @@ class TextContentController extends BaseController
      */
     public function edit(Request $request, TextContent $content, TextContentManager $manager): Response
     {
-        $form = $this->createForm(TextContentType::class, $textContent);
-        return $this->processEntity($request, $manager, $content, $form, 'admin_text_content_index', 'admin/text_content/edit.html.twig', 'edit');        
+        $form = $this->createForm(TextContentType::class, $content);
+        return $this->processEntity($request, $manager, $content, $form, static::INDEX_ROUTE_NAME, static::VIEWS_MAIN_PATH.'edit.html.twig', 'edit');        
     }
 }

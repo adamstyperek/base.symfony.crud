@@ -13,52 +13,51 @@ use App\Excepton\NoResulutionException;
 
 class BaseController extends Controller
 {
-
-    protected function processEntityWithPhoto(Request $request, EntityWithPhotoManagerInterface $entityManager, $entity, $form, $route, $view, $action, $form_name, FileManager $fileManager)
+    protected function processEntityWithPhoto(Request $request, EntityWithPhotoManagerInterface $entityManager, $entity, $form, $route, $view, $action, $form_name, FileManager $fileManager, ?array $route_params = [], $parent = null)
     {
         $alert = '';
         $form->handleRequest($request);
-        $photo_file = $request->files->get($formName)['photo_file'];
-
-        if ($form->isSubmitted() && $form->isValid()) {        
+        $photo_file = $request->files->get($form_name)['photo_file'];
+        $photo = null;
+        if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $photo = $fileManager->saveFile($photo_file, $entityManager->getBasePhotoDirectory());
-                $this->resizePhoto($photo_file->getFileNameWithExtension(), $entityManager->getBasePhotoDirectory(), $entityManager->getThumbSizes());
+                if ($photo_file) {
+                    $photo = $fileManager->saveFile($photo_file, $entityManager->getBasePhotoDirectory());
+                    $this->resizePhoto($photo->getFileNameWithExtension(), $entityManager->getBasePhotoDirectory(), $entityManager->getThumbSizes());
+                }
             
                 if ($action == 'create') {
                     $entityManager->create($entity, $photo);
                 } else {
-                    $entityManager->update($product, $photo);
+                    $entityManager->update($entity, $photo);
                 }
-    
-                return $this->redirectToRoute($route, ['alert' => 'saved']);
-            }
-            catch(NoFileException $nfe)
-            {
+                
+                $route_params['alert'] = 'saved';
+                return $this->redirectToRoute($route, $route_params);
+            } catch (NoFileException $nfe) {
                 $alert = 'Problem with photo';
-            }           
+            }
         }
 
         return $this->render($view, [
             'entity' => $entity,
             'form' => $form->createView(),
-            'alert' => $alert
+            'alert' => $alert,
+            'parent' => $parent
         ]);
     }
 
-    private function resizePhoto(string $file_name, string $base_directory, array $sizes)
+    protected function resizePhoto(string $file_name, string $base_directory, array $sizes)
     {
         try {
             $phtotoManager = new PhotoManager();
             $phtotoManager->resizePhoto($file_name, $base_directory, $sizes);
-        }
-        catch(NoResolutionException $nre)
-        {
+        } catch (NoResolutionException $nre) {
             //Log lack with resolution
         }
     }
 
-    protected function processEntity(Request $request, $entityManager, $entity, $form, $route, $view, $action)
+    protected function processEntity(Request $request, $entityManager, $entity, $form, $route, $view, $action, ?array $route_params = [], $parent = null)
     {
         $alert = '';
         $form->handleRequest($request);
@@ -67,16 +66,17 @@ class BaseController extends Controller
             if ($action == 'create') {
                 $entityManager->create($entity);
             } else {
-                $entityManager->update($product);
+                $entityManager->update($entity);
             }
-
-            return $this->redirectToRoute($route, ['alert' => 'saved']);
+            
+            $route_params['alert'] = 'saved';
+            return $this->redirectToRoute($route, $route_params);
         }
-
         return $this->render($view, [
             'entity' => $entity,
             'form' => $form->createView(),
-            'alert' => $alert
+            'alert' => $alert,
+            'parent' => $parent
         ]);
     }
 }

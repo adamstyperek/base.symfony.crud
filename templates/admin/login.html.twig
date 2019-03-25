@@ -1,0 +1,57 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+        <title>{% block title %}{{base_site_name}}{% endblock %}</title>
+
+        <!-- Bootstrap -->
+        <link href="{{asset('/admin_assets/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="{{asset('/admin_assets/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+
+        <!-- iCheck -->
+        <link href="{{asset('/admin_assets/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
+
+        <!-- Custom Theme Style -->
+        <link href="{{asset('/admin_assets/build/css/custom.min.css')}}" rel="stylesheet">
+
+
+    {% block stylesheets %}{% endblock %}
+
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600,700&amp;subset=latin-ext" rel="stylesheet">
+
+</head>
+<body class="login">
+
+    <div class="login_wrapper">
+        <div class="form login_form">
+            <section class="login_content">
+                <form action="{{path('login')}}" method="POST">
+                    <h1>Logowanie</h1>
+                    {% if alert == "error" %}
+                        <div class="alert alert-danger" style="color:#ffffff;">
+                            Błędne dane logowania.
+                        </div>
+                    {% endif %}
+                    <div>
+                        <input type="text" name="username" class="form-control" placeholder="Login" required="" value="{{lastLogin}}"/>
+                    </div>
+                    <div>
+                        <input type="password" name="password" class="form-control" placeholder="Hasło" required="" />
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-default submit">Zaloguj się</button>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </form>
+            </section>
+        </div>
+    </div>
+
+
+</body>
+</html>

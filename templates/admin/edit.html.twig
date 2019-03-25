@@ -5,8 +5,8 @@
 
 {% block body %}
     <h1>Edycja {{subject}} {{entity.name}}</h1>
-    {% block form %}{% endblock %}    
-    
-    <a href="{{list_path}}" class="btn btn-primary">Powrót do listy</a>
-
+    {% block additional %}{% endblock %}
+    {% block form %}{{ include('admin/_form.html.twig', {'button_label': 'Zapisz'}) }}{% endblock %}  
+    <a href="{{list_path}}" class="btn btn-primary">Powrót do listy</a>    
+    {% block additional_bottom %}{% endblock %}
 {% endblock %}

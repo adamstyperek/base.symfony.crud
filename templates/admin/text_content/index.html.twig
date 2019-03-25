@@ -1,7 +1,7 @@
 {% extends 'admin/list.html.twig' %}
 {% set _subject = 'Treść' %}
 {% block alert_saved %}
-    {{_subject}} została zapisany!
+    {{_subject}} została zapisana!
 {% endblock %}
 {% block alert_deleted %}
     {{_subject}} została usunięta!
@@ -13,16 +13,14 @@
 {% block header2 %}Treści{% endblock %}                    
 {% block thead %}
     <th>Nazwa</th>
-    <th>Tytuł</th>
     <th>Akcje</th>
     {% endblock %}
     {% block tbody %}
         {% for content in contents %}
         <tr>
             <td>{{ content.name }}</td>
-            <td>{{ content.title }}</td>
             <td>
-                <a href="{{ path('admin_text_content_edit', {'id': conetent.id}) }}" class="btn btn-primary btn-sm">Edytuj</a>
+                <a href="{{ path('admin_text_content_edit', {'id': content.id}) }}" class="btn btn-primary btn-sm">Edytuj</a>
             </td>
         </tr>
     {% else %}

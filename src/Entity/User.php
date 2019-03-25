@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
-class User
+class User implements \Symfony\Component\Security\Core\User\UserInterface
 {
     /**
      * @ORM\Id()
@@ -106,4 +106,23 @@ class User
 
         return $this;
     }
+
+    public function getRoles()
+    {
+        return array('ROLE_ADMIN');
+
+    }
+
+    public function getSalt()
+    {
+        return null;
+
+    }
+
+    public function eraseCredentials()
+    {
+        
+    }
+
+
 }

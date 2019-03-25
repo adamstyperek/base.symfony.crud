@@ -55,7 +55,7 @@ class File
     {
         $this->fileName = $fileName;
         $this->extension = $extension;
-        $this->originalFileName = $originalFileName;
+        $this->OriginalFileName = $originalFileName;
         $this->originalExtenstion = $originalExtenstion;
         $this->type = $type;
         $this->createdAt = new \DateTime();

@@ -15,13 +15,14 @@ class TextContentManager extends BaseEntityManager
 
     public function update(TextContent &$text_content)
     {
+        $text_content->setUpdatedAt(new \DateTime());
         $this->saveEntity($text_content);
     }
 
     public function findTextContentByName(string $name) : ?TextContent
     {
-        $repository = $this->manager->getRepository($entity_class);
+        $repository = $this->entity_manager->getRepository(TextContent::class);
 
-        return $repository->findOne(['name' => $name]);
+        return $repository->findOneBy(['name' => $name]);
     }
 }

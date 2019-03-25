@@ -38,9 +38,25 @@ class TextContent
     private $title;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $titleEn;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $content;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $contentEn;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -106,4 +122,50 @@ class TextContent
 
         return $this;
     }
+
+    public function getTitleEn(): ?string
+    {
+        return $this->titleEn;
+    }
+
+    public function setTitleEn(string $titleEn): self
+    {
+        $this->titleEn = $titleEn;
+
+        return $this;
+    }
+
+    public function getContentEn(): ?string
+    {
+        return $this->contentEn;
+    }
+
+    public function setContentEn(string $contentEn): self
+    {
+        $this->contentEn = $contentEn;
+
+        return $this;
+    }
+
+    public function getContentByLang(string $lang)
+    {
+        if($lang == 'en') {
+            return $this->contentEn;
+        }
+        else {
+            return $this->content;
+        }
+    }
+
+    public function getTitleByLang(string $lang)
+    {
+        if($lang == 'en') {
+            return $this->titleEn;
+        }
+        else {
+            return $this->title;
+        }
+    }
+
+    
 }

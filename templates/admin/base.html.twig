@@ -41,7 +41,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="{{path('admin_index')}}" class="site_title"> <span>{{base_site_name}}</span></a>
+                        <a href="{{path('admin_homepage')}}" class="site_title"> <span>{{base_site_name}}</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -52,14 +52,8 @@
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
                             <ul class="nav side-menu"> 
-                                <li>
-                                    <a><i class="fas fa-angle-right fa-fw"></i> Teksty<span class="fas arrow"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="{{path('admin_text_content_index')}}"><i class="fas fa-list"></i> Lista</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                    <a href="{{path('admin_text_content_index')}}"><i class="fas fa-list"></i> Teksty</a>
+                                </li>                                
                             </ul>
 
                         </div>                        
@@ -82,7 +76,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    {{app.user ? app.user.login : ''}}
+                                    {{app.user ? app.user.username : ''}}
                                     <span class=" fas fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -153,7 +147,15 @@
 
     <script>
         $(document).ready(function () {
-            $('.wysiwyg').summernote();
+            $('.wysiwyg').summernote({
+                callbacks: {
+                    onPaste: function (e) {
+                        var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+                        e.preventDefault();
+                        document.execCommand('insertText', false, bufferText);
+                    }
+                }
+            });
         });
 
     </script>
