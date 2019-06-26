@@ -42,6 +42,13 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      */
     private $role;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

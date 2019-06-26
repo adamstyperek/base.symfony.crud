@@ -6,6 +6,8 @@
 parameters:
     locale: 'pl'
     img_directory: '%kernel.project_dir%/public/img/'
+    admin_username: '%env(BASE_ADMIN_USERNAME)%'
+    admin_password: '%env(BASE_ADMIN_PASSWORD)%'
 twig:
     globals:
         img_direcotry: '/img/'
@@ -38,4 +40,11 @@ services:
             $entity_manager: '@doctrine.orm.default_entity_manager' 
     App\Service\FileManager:
         arguments:
-            $entity_manager: '@doctrine.orm.default_entity_manager'         
+            $entity_manager: '@doctrine.orm.default_entity_manager'    
+    App\Utils\AdminDataGetter:
+        arguments:
+            $username: '%admin_username%'
+            $password: '%admin_password%'     
+    App\Service\UserManager:
+        arguments:
+            $entity_manager: '@doctrine.orm.default_entity_manager'                        
